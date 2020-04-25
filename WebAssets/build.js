@@ -24,7 +24,7 @@ task('ts', async () => {
         stderr: process.stderr
     });
 
-    await Promise.all((await fg(['dist/**/*.js'])).map(async path => {
+    await Promise.all((await fg(['dist/**/*.js', '!dist/node_modules/**/*.*'])).map(async path => {
         const { code: transformed } = /** @type {import('@babel/core').BabelFileResult} */(await babel.transformFileAsync(path, {
             plugins: [
                 // Add .js extension to all imports.
